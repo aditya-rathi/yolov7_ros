@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/cerlab-ugv/submodule_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/cerlab-ugv/submodule_ws/src/custom_costmap_layer/include/**",
+        "/home/cerlab-ugv/submodule_ws/src/darknet_ros/darknet_ros/include/**",
+        "/home/cerlab-ugv/submodule_ws/src/pytorch_ros/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
