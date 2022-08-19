@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
-import matplotlib.pyplot as plt
+import argparse
 import torch
 import cv2
 import yaml
 from torchvision import transforms
 import numpy as np
-import os
 from utils.datasets import letterbox
 from utils.general import non_max_suppression_mask_conf
 from detectron2.modeling.poolers import ROIPooler
@@ -19,12 +18,12 @@ import rospy
 from sensor_msgs.msg import Image
 
 class YoloObjectDetector:
-    def __init__(self):
+    def __init__(self, opt):
         rospy.init_node('yolo_detector',anonymous=True)
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        with open('/home/cerlab-ugv/submodule_ws/src/pytorch_ros/src/data/hyp.scratch.mask.yaml') as f:
+        with open(opt.root_dir+'/data/'+opt.hyp_file) as f:
             self.hyp = yaml.load(f, Loader=yaml.FullLoader)
-        self.weights = torch.load('/home/cerlab-ugv/submodule_ws/src/pytorch_ros/src/yolov7-mask.pt')
+        self.weights = torch.load(opt.root_dir+'/src/yolov7-mask.pt')
         self.model = self.weights['model']
         self.model = self.model.half().to(self.device)
         self.model.eval()
@@ -88,7 +87,13 @@ class YoloObjectDetector:
             self.rate.sleep()
 
 if __name__ == "__main__":
-    detector = YoloObjectDetector()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--root_dir', type=str)
+    parser.add_argument('--model_param_file', type=str)
+    parser.add_argument('--hyp_file', type=str)
+    opt, _  = parser.parse_known_args()
+
+    detector = YoloObjectDetector(opt)
     rospy.spin()
 
 

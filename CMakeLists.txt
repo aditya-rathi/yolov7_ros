@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   sensor_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -107,7 +108,7 @@ add_message_files(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES pytorch_ros
-  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs sensor_msgs
+  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs sensor_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -163,6 +164,7 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
   src/YoloObjectDetector.py
+  src/test_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
