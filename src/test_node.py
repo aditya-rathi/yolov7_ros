@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 
+import torch
 from models.yolo import Model
-import argparse
+import os
+
+weights = torch.load('/home/cerlab-ugv/submodule_ws/src/yolov7_ros/src/yolov7-mask-statedict.pt')
+yolo = Model(cfg='/home/cerlab-ugv/submodule_ws/src/yolov7_ros/config/yolov7-mask-test.yaml', ch=3, nc=80)
+yolo.float().eval()
+yolo.load_state_dict(weights)
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--model_param_file', type=str)
-parser.add_argument('--hyp_file', type=str)
-opt, _ = parser.parse_known_args()
-m = Model(cfg = '/home/cerlab-ugv/submodule_ws/src/yolov7_pytorch_ros/config/yolov7-mask.yaml')
-print(opt.hyp_file)
+
+#yolo = Model(cfg='/home/cerlab-ugv/submodule_ws/src/yolov7_ros/config/yolov7-mask.yaml')
+#yolo.half()
+#yolo.load_state_dict(weights)
+# weights['model']
+print(1)
 

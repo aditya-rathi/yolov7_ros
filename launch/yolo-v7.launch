@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
     <!-- Set network param locations -->
-    <arg name="root_dir" default="$(find yolov7_pytorch_ros)"/>
-    <arg name="model_param_file" default="yolov7-mask.yaml"/>
-    <arg name="hyp_file" default="hyp.scratch.mask.yaml"/>"
-    <arg name="sub_topic" default="/camera/color/image_raw"
+    <arg name="root_dir" default="$(find yolov7_ros)"/>
+    <!-- <arg name="model_param_file" default="yolov7-mask.yaml"/> -->
+    <arg name="hyp_file" default="hyp.scratch.mask.yaml"/>
+    <arg name="sub_topic" default="/camera/color/image_raw"/>
 
-    <!-- <node pkg="yolov7_pytorch_ros" type="YoloObjectDetector.py" name="Yolov7Detector" output="screen" args="$(arg model_param_file) $(arg hyp_file)"/> -->
-    <node pkg="yolov7_pytorch_ros" type="test_node.py" name="Yolov7Detector" output="screen" args="--root_dir $(arg root_dir) --model_param_file $(arg model_param_file) --hyp_file $(arg hyp_file) --sub_topic $(arg sub_topic)"/>
+    
+    <?ignore
+    <node pkg="yolov7_ros" type="test_node.py" name="Yolov7Detector" output="screen" args="--root_dir $(arg root_dir)  --hyp_file $(arg hyp_file) --sub_topic $(arg sub_topic)"/> 
+    ?>
+    <node pkg="yolov7_ros" type="YoloObjectDetector.py" name="Yolov7Detector" output="screen" args="--root_dir $(arg root_dir)  --hyp_file $(arg hyp_file) --sub_topic $(arg sub_topic)"/>
+    
 
 </launch>
