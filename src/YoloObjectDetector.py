@@ -28,7 +28,7 @@ class YoloObjectDetector:
         self.model = self.model.half().to(self.device)
         self.model.eval()
         self.bridge = CvBridge()
-        rospy.Subscriber('/camera/color/image_raw',Image,self.cam_callback)
+        rospy.Subscriber(opt.sub_topic,Image,self.cam_callback)
         self.pub = rospy.Publisher('detected_img',Image,queue_size=1)
         self.rate = rospy.Rate(20)
 
@@ -70,8 +70,7 @@ class YoloObjectDetector:
         for one_mask, bbox, cls, conf in zip(pred_masks_np, nbboxes, pred_cls, pred_conf):
             if conf < 0.25:
                 continue
-            color = [np.random.randint(255), np.random.randint(255), np.random.randint(255)]
-                                
+            color = [np.random.randint(255), np.random.randint(255), np.random.randint(255)]                               
                                 
             pnimg[one_mask] = pnimg[one_mask] * 0.5 + np.array(color, dtype=np.uint8) * 0.5
             pnimg = cv2.rectangle(pnimg, (bbox[0], bbox[1]), (bbox[2], bbox[3]), color, 2)
@@ -91,6 +90,7 @@ if __name__ == "__main__":
     parser.add_argument('--root_dir', type=str)
     parser.add_argument('--model_param_file', type=str)
     parser.add_argument('--hyp_file', type=str)
+    parser.add_argument('--sub_topic', type=str)
     opt, _  = parser.parse_known_args()
 
     detector = YoloObjectDetector(opt)
