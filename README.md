@@ -60,7 +60,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This repo is a ROS wrapper for the recently release Yolov7 architecture. Currently this project uses the Yolov7-mask architecture for segmentation of the detected images. This repo is based on the [official implementation](https://github.com/WongKinYiu/yolov7)
+This repo is a ROS wrapper for the recently release Yolov7 architecture. Currently this project uses the Yolov7-mask architecture for segmentation of the detected images. This repo is based on the [official implementation](https://github.com/WongKinYiu/yolov7) of the Yolov7 algorithm.
 
 The ros node will take in images from a camera and output all the data including the masks, bounding boxes and the centers of the objects detected (in the camera frame) to a new topic. Visualization of the final result is also available on a separate topic but can be turned off if needed (WIP)
 
