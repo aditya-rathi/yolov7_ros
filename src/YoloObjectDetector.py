@@ -107,10 +107,11 @@ class YoloObjectDetector:
         self.detection_data.header.stamp = rospy.Time.now()
         self.detection_data.source_image = self.source_image
 
-        vis_msg = self.bridge.cv2_to_imgmsg(image)
+        
         if not rospy.is_shutdown():
             self.detection_pub.publish(self.detection_data)
             if opt.viz:
+                vis_msg = self.bridge.cv2_to_imgmsg(image)
                 self.img_pub.publish(vis_msg)
             # rospy.loginfo("published detection data")
             self.rate.sleep()
@@ -122,7 +123,7 @@ if __name__ == "__main__":
     parser.add_argument('--model_param_file', type=str)
     parser.add_argument('--hyp_file', type=str)
     parser.add_argument('--sub_topic', type=str)
-    parser.add_argument('--viz',type=bool)
+    parser.add_argument('--viz',type=bool, default=False)
     opt, _  = parser.parse_known_args()
 
     detector = YoloObjectDetector(opt)
